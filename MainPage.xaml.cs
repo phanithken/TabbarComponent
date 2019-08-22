@@ -31,8 +31,19 @@ namespace Tabbar
         {
             this.InitializeComponent();
 
-            this.indicators = new Image[] { this.firstIndicator, this.secondIndicator, this.thirdIndicator, this.forthIndicator };
-            this.tabs = new Button[] { this.FirstBtn, this.SecondBtn, this.ThirdBtn, this.ForthBtn };
+            this.indicators = new Image[] {
+                this.firstIndicator,
+                this.secondIndicator,
+                this.thirdIndicator,
+                this.forthIndicator
+            };
+
+            this.tabs = new Button[] {
+                this.FirstBtn,
+                this.SecondBtn,
+                this.ThirdBtn,
+                this.ForthBtn
+            };
         }
 
         private void FirstButton(object sender, RoutedEventArgs args)
