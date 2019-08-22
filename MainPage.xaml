@@ -45,11 +45,20 @@
     </Page.Resources>
     
     <Grid>
+        <TextBlock x:Name="test" />
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" CornerRadius="5" BorderBrush="Black" BorderThickness="1">
+            <StackPanel 
+                x:Name="Container"
+                Background="Gray" 
+                Width="700" 
+                Orientation="Horizontal" 
+                HorizontalAlignment="Center" 
+                CornerRadius="5" 
+                BorderBrush="Black" 
+                BorderThickness="1">
+                
                 <Button 
-                    Style="{StaticResource BtnStyle}" 
-                    Width="180" 
+                    Style="{StaticResource BtnStyle}"  
                     Height="50" 
                     BorderBrush="Black" 
                     BorderThickness="1" 
@@ -58,10 +67,9 @@
                     Content="商品マップ" 
                     Foreground="White" 
                     Background="Black"></Button>
-                
+
                 <Button 
                     Style="{StaticResource BtnStyle}" 
-                    Width="180" 
                     Height="50" 
                     BorderBrush="Black" 
                     BorderThickness="1" 
@@ -70,10 +78,9 @@
                     Content="ユーザーレビュー" 
                     Foreground="Black" 
                     Background="White"></Button>
-                
+
                 <Button 
                     Style="{StaticResource BtnStyle}" 
-                    Width="180" 
                     Height="50" 
                     BorderBrush="Black" 
                     BorderThickness="1" 
@@ -84,8 +91,7 @@
                     Background="White"></Button>
                 
                 <Button 
-                    Style="{StaticResource BtnStyle}" 
-                    Width="180" 
+                    Style="{StaticResource BtnStyle}"  
                     Height="50" 
                     BorderBrush="Black" 
                     BorderThickness="1" 
@@ -102,29 +108,28 @@
                     Visibility="{Binding Path=IndicatorVisible}"
                     x:Name="firstIndicator" 
                     Source="Assets/bottom_arrow.png" 
-                    Width="180" 
                     Height="12" />
                 
                 <Image 
                     Opacity="0"
                     x:Name="secondIndicator" 
                     Source="Assets/bottom_arrow.png" 
-                    Width="180" 
                     Height="12" />
-                
+
+
                 <Image
                     Opacity="0"
                     x:Name="thirdIndicator" 
                     Source="Assets/bottom_arrow.png" 
-                    Width="180" 
                     Height="12" />
-                
+
+
                 <Image
                     Opacity="0"
                     x:Name="forthIndicator" 
                     Source="Assets/bottom_arrow.png" 
-                    Width="180" 
                     Height="12" />
+
             </StackPanel>
         </StackPanel>
     </Grid>

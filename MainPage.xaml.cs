@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -26,10 +27,16 @@ namespace Tabbar
 
         private Image[] indicators;
         private Button[] tabs;
+        private double totalWidth;
+        private int tabAmount;
 
         public MainPage()
         {
             this.InitializeComponent();
+
+            this.totalWidth = this.Container.Width - 2;
+            this.tabAmount = VisualTreeHelper.GetChildrenCount(this.Container);
+            this.Container.Children.Add
 
             this.indicators = new Image[] {
                 this.firstIndicator,
@@ -44,6 +51,9 @@ namespace Tabbar
                 this.ThirdBtn,
                 this.ForthBtn
             };
+
+            // re-set up width for each tab
+            this.SetupWidth();
         }
 
         private void FirstButton(object sender, RoutedEventArgs args)
@@ -58,18 +68,20 @@ namespace Tabbar
             this.SetupButton(this.SecondBtn);
         }
 
+        
         private void ThirdButton(object sender, RoutedEventArgs args)
         {
             this.SetupIndicator(this.thirdIndicator);
             this.SetupButton(this.ThirdBtn);
         }
-
+        
 
         private void FothButton(object sender, RoutedEventArgs args)
         {
             this.SetupIndicator(this.forthIndicator);
             this.SetupButton(this.ForthBtn);
         }
+
 
         /// <summary>
         /// Setup Indicator Visibility
@@ -105,6 +117,30 @@ namespace Tabbar
                     button.Background = new SolidColorBrush(Colors.White);
                 }
             }
+        }
+
+        private void SetupWidth()
+        {
+            var width = this.totalWidth / this.tabAmount;
+
+            // set up button width
+            foreach(Button button in tabs)
+            {
+                button.Width = width;
+            }
+
+            // set up indicator width
+            foreach(Image image in indicators)
+            {
+                image.Width = width;
+            }
+        }
+
+        private Button GenerateTabButton(string title)
+        {
+            Button btn = new Button();
+            btn.Content = title;
+            return btn;
         }
     }
 }
