@@ -29,19 +29,27 @@ namespace Tabbar
             this.Tabs = new List<Button>();
             this.Indicators = new List<Image>();
 
+            // to add new tab, we have to generate tab from this method
             var firstBtn = this.GenerateTabButton("商品マップ");
             var secondBtn = this.GenerateTabButton("ユーザーレビュー");
             var thirdBtn = this.GenerateTabButton("商品情報");
             var forthBtn = this.GenerateTabButton("オンラインストア在庫");
 
+            // and add it as subview
             this.AddNewTab(firstBtn);
             this.AddNewTab(secondBtn);
-            // this.AddNewTab(thirdBtn);
-            this.AddNewTab(forthBtn);
+            //this.AddNewTab(thirdBtn);
+            //this.AddNewTab(forthBtn);
 
+            // initialize first tab
             this.InitTab();
         }
 
+        /// <summary>
+        /// Tab Click callback
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
         private void TabClickCallback(object sender, RoutedEventArgs args)
         {
             var btn = (Button)sender;
@@ -64,7 +72,6 @@ namespace Tabbar
                         acc = (tabwidth / 2);
                     }
 
-                    this.test.Text = acc.ToString();
                     this.Indicator.Margin = new Thickness(acc, 0, 0, 0);
                 }
                 i++;
@@ -90,13 +97,14 @@ namespace Tabbar
             }
         }
 
+        /// <summary>
+        /// Init to set up width, style and margin of first tab
+        /// </summary>
         private void InitTab() {
             this.SetupButton(this.Tabs.First());
 
             var minMargin = (this.TotalWidth / this.TabAmount) / 2;
             this.Indicator.Margin = new Thickness(minMargin, 0, 0, 0);
-
-            this.test.Text = this.Indicator.Margin.Left.ToString();
         }
 
         /// <summary>
@@ -114,7 +122,7 @@ namespace Tabbar
         }
 
         /// <summary>
-        /// Get Tab Button
+        /// Generate Tab
         /// </summary>
         /// <param name="title"></param>
         /// <returns></returns>

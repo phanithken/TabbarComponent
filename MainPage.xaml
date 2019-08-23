@@ -43,14 +43,13 @@
             </Setter>
         </Style>
     </Page.Resources>
-    
+
     <Grid>
-        <TextBlock x:Name="test" />
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel 
                 x:Name="Container"
                 Background="Gray" 
-                Width="800" 
+                Width="400" 
                 Orientation="Horizontal" 
                 HorizontalAlignment="Center" 
                 CornerRadius="5" 
