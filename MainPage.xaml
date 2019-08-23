@@ -50,83 +50,19 @@
             <StackPanel 
                 x:Name="Container"
                 Background="Gray" 
-                Width="700" 
+                Width="800" 
                 Orientation="Horizontal" 
                 HorizontalAlignment="Center" 
                 CornerRadius="5" 
                 BorderBrush="Black" 
                 BorderThickness="1">
-                
-                <Button 
-                    Style="{StaticResource BtnStyle}"  
-                    Height="50" 
-                    BorderBrush="Black" 
-                    BorderThickness="1" 
-                    x:Name="FirstBtn" 
-                    Click="FirstButton" 
-                    Content="商品マップ" 
-                    Foreground="White" 
-                    Background="Black"></Button>
 
-                <Button 
-                    Style="{StaticResource BtnStyle}" 
-                    Height="50" 
-                    BorderBrush="Black" 
-                    BorderThickness="1" 
-                    x:Name="SecondBtn" 
-                    Click="SecondButton" 
-                    Content="ユーザーレビュー" 
-                    Foreground="Black" 
-                    Background="White"></Button>
-
-                <Button 
-                    Style="{StaticResource BtnStyle}" 
-                    Height="50" 
-                    BorderBrush="Black" 
-                    BorderThickness="1" 
-                    x:Name="ThirdBtn" 
-                    Click="ThirdButton" 
-                    Content="商品情報" 
-                    Foreground="Black" 
-                    Background="White"></Button>
-                
-                <Button 
-                    Style="{StaticResource BtnStyle}"  
-                    Height="50" 
-                    BorderBrush="Black" 
-                    BorderThickness="1" 
-                    x:Name="ForthBtn" 
-                    Click="FothButton" 
-                    Content="オンラインストア在庫" 
-                    Foreground="Black" 
-                    Background="White"></Button>
-                
             </StackPanel>
             <StackPanel Orientation="Horizontal">
                 <Image
                     Opacity="1"
                     Visibility="{Binding Path=IndicatorVisible}"
-                    x:Name="firstIndicator" 
-                    Source="Assets/bottom_arrow.png" 
-                    Height="12" />
-                
-                <Image 
-                    Opacity="0"
-                    x:Name="secondIndicator" 
-                    Source="Assets/bottom_arrow.png" 
-                    Height="12" />
-
-
-                <Image
-                    Opacity="0"
-                    x:Name="thirdIndicator" 
-                    Source="Assets/bottom_arrow.png" 
-                    Height="12" />
-
-
-                <Image
-                    Opacity="0"
-                    x:Name="forthIndicator" 
+                    x:Name="Indicator" 
                     Source="Assets/bottom_arrow.png" 
                     Height="12" />
 

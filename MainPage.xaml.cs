@@ -1,19 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -25,78 +15,59 @@ namespace Tabbar
     public sealed partial class MainPage : Page
     {
 
-        private Image[] indicators;
-        private Button[] tabs;
-        private double totalWidth;
-        private int tabAmount;
+        private List<Image> Indicators;
+        private List<Button> Tabs;
+        private double TotalWidth;
+        private int TabAmount;
 
         public MainPage()
         {
             this.InitializeComponent();
 
-            this.totalWidth = this.Container.Width - 2;
-            this.tabAmount = VisualTreeHelper.GetChildrenCount(this.Container);
-            this.Container.Children.Add
+            this.TotalWidth = this.Container.Width - 2;
+            this.TabAmount = VisualTreeHelper.GetChildrenCount(this.Container);
+            this.Tabs = new List<Button>();
+            this.Indicators = new List<Image>();
 
-            this.indicators = new Image[] {
-                this.firstIndicator,
-                this.secondIndicator,
-                this.thirdIndicator,
-                this.forthIndicator
-            };
+            var firstBtn = this.GenerateTabButton("商品マップ");
+            var secondBtn = this.GenerateTabButton("ユーザーレビュー");
+            var thirdBtn = this.GenerateTabButton("商品情報");
+            var forthBtn = this.GenerateTabButton("オンラインストア在庫");
 
-            this.tabs = new Button[] {
-                this.FirstBtn,
-                this.SecondBtn,
-                this.ThirdBtn,
-                this.ForthBtn
-            };
+            this.AddNewTab(firstBtn);
+            this.AddNewTab(secondBtn);
+            // this.AddNewTab(thirdBtn);
+            this.AddNewTab(forthBtn);
 
-            // re-set up width for each tab
-            this.SetupWidth();
+            this.InitTab();
         }
 
-        private void FirstButton(object sender, RoutedEventArgs args)
+        private void TabClickCallback(object sender, RoutedEventArgs args)
         {
-            this.SetupIndicator(this.firstIndicator);
-            this.SetupButton(this.FirstBtn);
-        }
+            var btn = (Button)sender;
+            this.SetupButton(btn);
 
-        private void SecondButton(object sender, RoutedEventArgs args)
-        {
-            this.SetupIndicator(this.secondIndicator);
-            this.SetupButton(this.SecondBtn);
-        }
-
-        
-        private void ThirdButton(object sender, RoutedEventArgs args)
-        {
-            this.SetupIndicator(this.thirdIndicator);
-            this.SetupButton(this.ThirdBtn);
-        }
-        
-
-        private void FothButton(object sender, RoutedEventArgs args)
-        {
-            this.SetupIndicator(this.forthIndicator);
-            this.SetupButton(this.ForthBtn);
-        }
-
-
-        /// <summary>
-        /// Setup Indicator Visibility
-        /// </summary>
-        /// <param name="indicator"></param>
-        private void SetupIndicator(Image indicator)
-        {
-            indicator.Opacity = 1;
-
-            foreach(Image image in indicators)
+            // set indicator margin
+            var i = 0;
+            foreach(var button in Tabs)
             {
-                if (image != indicator)
+                if (button == btn)
                 {
-                    image.Opacity = 0;
+                    var tabwidth = (this.TotalWidth / this.TabAmount);
+                    double acc = 0;
+
+                    if (i > 0)
+                    {
+                        acc = (tabwidth / 2) + (tabwidth * i);
+                    } else
+                    {
+                        acc = (tabwidth / 2);
+                    }
+
+                    this.test.Text = acc.ToString();
+                    this.Indicator.Margin = new Thickness(acc, 0, 0, 0);
                 }
+                i++;
             }
         }
 
@@ -109,7 +80,7 @@ namespace Tabbar
             btn.Foreground = new SolidColorBrush(Colors.White);
             btn.Background = new SolidColorBrush(Colors.Black);
 
-            foreach(Button button in tabs)
+            foreach(Button button in Tabs)
             {
                 if (button != btn)
                 {
@@ -119,28 +90,61 @@ namespace Tabbar
             }
         }
 
+        private void InitTab() {
+            this.SetupButton(this.Tabs.First());
+
+            var minMargin = (this.TotalWidth / this.TabAmount) / 2;
+            this.Indicator.Margin = new Thickness(minMargin, 0, 0, 0);
+
+            this.test.Text = this.Indicator.Margin.Left.ToString();
+        }
+
+        /// <summary>
+        /// set up width of each tab
+        /// </summary>
         private void SetupWidth()
         {
-            var width = this.totalWidth / this.tabAmount;
+            var width = this.TotalWidth / this.TabAmount;
 
             // set up button width
-            foreach(Button button in tabs)
+            foreach(var button in Tabs)
             {
                 button.Width = width;
             }
-
-            // set up indicator width
-            foreach(Image image in indicators)
-            {
-                image.Width = width;
-            }
         }
 
+        /// <summary>
+        /// Get Tab Button
+        /// </summary>
+        /// <param name="title"></param>
+        /// <returns></returns>
         private Button GenerateTabButton(string title)
         {
             Button btn = new Button();
             btn.Content = title;
+            btn.Style = (Style)Application.Current.Resources["BtnStyle"];
+            btn.Height = 50;
+            btn.Click += this.TabClickCallback;
+            btn.BorderBrush = new SolidColorBrush(Colors.Black);
+            btn.BorderThickness = new Thickness(1, 1, 1, 1);
+            btn.Foreground = new SolidColorBrush(Colors.Black);
+            btn.Background = new SolidColorBrush(Colors.White);
             return btn;
+        }
+
+        /// <summary>
+        /// Add new Tab
+        /// </summary>
+        /// <param name="tab"></param>
+        private void AddNewTab(Button tab)
+        {
+            // add button to tabs
+            this.Container.Children.Add(tab);
+
+            // add and re-calculate tab width
+            this.Tabs.Add(tab);
+            this.TabAmount += 1;
+            this.SetupWidth();
         }
     }
 }
